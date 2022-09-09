@@ -8,7 +8,7 @@ class ProductsHandler:
     def __init__(self) -> None:
         self.products = Products(mongo_client)
 
-    def find_products(self, product_id):
+    def find_products(self):
         try:
             return self.products.find_all_products()
         except Exception as e:
@@ -32,9 +32,9 @@ class ProductsHandler:
             print(e.args)
             return False
     
-    def update_one(self,data:dict):
+    def update_one(self,product_id:str,data:dict):
         try:
-            self.products.update_product(data["product_id"],data)
+            self.products.update_product(product_id,data)
             return True
         except Exception as e:
             print(e.args)
@@ -43,7 +43,7 @@ class ProductsHandler:
     def delete_one(self,product_id:str):
         try:
             self.products.delete_product(product_id)
-            return False
+            return True
         except Exception as e:
             print(e.args)
             return False
