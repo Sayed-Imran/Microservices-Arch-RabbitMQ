@@ -22,7 +22,6 @@ class ProductsHandler:
 
     def create_one(self, data: dict):
         try:
-
             self.products.create_product(data)
             return True
         except Exception as e:
