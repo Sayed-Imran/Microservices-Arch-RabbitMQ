@@ -1,4 +1,4 @@
-import pika
+import pika, json
 
 
 connection = pika.BlockingConnection(pika.URLParameters("65.0.110.171"))
@@ -6,5 +6,6 @@ connection = pika.BlockingConnection(pika.URLParameters("65.0.110.171"))
 channel = connection.channel()
 
 
-def publish():
-    channel.basic_publish(exchange="", routing_key="admin", body="")
+def publish(method, body):
+    properties = pika.BasicProperties(method)
+    channel.basic_publish(exchange="", routing_key="main", body=json.dumps(body), properties=properties)
