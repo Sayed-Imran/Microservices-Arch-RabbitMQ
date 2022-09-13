@@ -17,7 +17,7 @@ class ProductsHandler:
 
     def find_one(self, product_id: str):
         try:
-            return self.find_one(product_id)
+            return self.products.find_product(product_id)
         except Exception as e:
             print(e.args)
             return None

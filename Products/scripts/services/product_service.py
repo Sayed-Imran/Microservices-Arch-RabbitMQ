@@ -2,6 +2,7 @@ from fastapi import HTTPException, APIRouter, status
 from scripts.core.handlers.product_handler import ProductsHandler
 from scripts.constants.api_endpoints import APIEnpoints
 from scripts.schemas.products_schema import ProductsSchema
+import random
 
 products_router = APIRouter(prefix=APIEnpoints.api)
 
@@ -56,3 +57,8 @@ def delete_product(product_id:str):
     except Exception as e:
         print(e.args)
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=e.args)
+
+# Route for a random user
+@products_router.get('/user')
+def get_user():
+    return {'id': random.choice([1,2,3,4,5,6])}
