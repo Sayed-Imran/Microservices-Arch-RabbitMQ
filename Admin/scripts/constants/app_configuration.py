@@ -35,3 +35,10 @@ class DBConf:
         if not uri:
             print("Error, ENV variable Mongo URI not set")
             sys.exit(1)
+
+class MicroService:
+    class RabbitMQ:
+        uri = config.get("RABBIT_MQ","uri")
+        if not uri:
+            print("Error, ENV variable RabbitMQ URI not set")
+            sys.exit(1)

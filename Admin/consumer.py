@@ -3,8 +3,10 @@ import json
 from dotenv import load_dotenv
 load_dotenv()
 
+from scripts.constants.app_configuration import MicroService
+
 from scripts.core.handlers.product_handler import ProductsHandler
-connection = pika.BlockingConnection(pika.ConnectionParameters("3.110.92.250"))
+connection = pika.BlockingConnection(pika.ConnectionParameters(MicroService.RabbitMQ.uri))
 
 channel = connection.channel()
 

@@ -2,8 +2,9 @@ import string, random
 from scripts.utils.producer_util import Publisher
 from scripts.db.mongo.microservice1.collections.products import Products
 from scripts.db.mongo import mongo_client
+from scripts.constants.app_configuration import MicroService
 
-publisher = Publisher('3.110.92.250')
+publisher = Publisher(MicroService.RabbitMQ.uri)
 class ProductsHandler:
     def __init__(self) -> None:
         self.products = Products(mongo_client)
