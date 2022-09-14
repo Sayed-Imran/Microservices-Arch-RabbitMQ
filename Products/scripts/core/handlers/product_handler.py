@@ -1,9 +1,9 @@
 import string, random
-from products.scripts.utils.producer_util import publish
+from scripts.utils.producer_util import Publisher
 from scripts.db.mongo.microservice1.collections.products import Products
 from scripts.db.mongo import mongo_client
 
-
+publisher = Publisher('3.110.92.250')
 class ProductsHandler:
     def __init__(self) -> None:
         self.products = Products(mongo_client)
@@ -28,8 +28,8 @@ class ProductsHandler:
                 random.choices(string.ascii_uppercase + string.digits, k=7)
             )
             data["product_id"] = product_id
+            publisher.publish("product_created", data)
             self.products.create_product(data)
-            publish("product_created", data)
             return True
         except Exception as e:
             print(e.args)
@@ -39,7 +39,7 @@ class ProductsHandler:
         try:
             self.products.update_product(product_id, data)
             data["product_id"] = product_id
-            publish("product_updated", data)
+            publisher.publish("product_updated", data)
             return True
         except Exception as e:
             print(e.args)
@@ -48,7 +48,7 @@ class ProductsHandler:
     def delete_one(self, product_id: str):
         try:
             self.products.delete_product(product_id)
-            publish("product_deleted", {"product_id": product_id})
+            publisher.publish("product_deleted", {"product_id": product_id})
             return True
         except Exception as e:
             print(e.args)

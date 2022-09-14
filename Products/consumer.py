@@ -1,7 +1,8 @@
 import pika
+from dotenv import load_dotenv
+load_dotenv()
 
-
-connection = pika.BlockingConnection(pika.URLParameters("3.110.92.250"))
+connection = pika.BlockingConnection(pika.ConnectionParameters("3.110.92.250"))
 
 channel = connection.channel()
 
