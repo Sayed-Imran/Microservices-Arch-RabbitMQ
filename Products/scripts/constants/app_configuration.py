@@ -39,7 +39,6 @@ class DBConf:
 class MicroService:
     class RabbitMQ:
         uri = config.get("RABBIT_MQ", "uri")
-        print(uri)
         if not uri:
             print("Error, ENV variable RabbitMQ URI not set")
             sys.exit(1)

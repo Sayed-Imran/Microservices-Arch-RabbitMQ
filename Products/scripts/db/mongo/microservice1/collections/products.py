@@ -6,7 +6,7 @@ from scripts.utils.mongo_util import MongoCollectionBaseClass
 class ProductSchema(MongoBaseSchema):
     title: str
     image: str
-    likes: list = []
+    likes: int = 0
 
 
 class Products(MongoCollectionBaseClass):
@@ -36,12 +36,3 @@ class Products(MongoCollectionBaseClass):
     def delete_product(self, product_id):
         self.delete_one(query={"product_id": product_id})
 
-    def like(self, product_id: str, user_id: str):
-        self.update_push_array(
-            query={"product_id": product_id}, array_key="likes", data=user_id
-        )
-
-    def dislike(self, product_id: str, user_id: str):
-        self.update_pull_array(
-            query={"product_id": product_id}, array_key="likes", data=user_id
-        )

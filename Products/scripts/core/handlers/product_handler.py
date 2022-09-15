@@ -54,14 +54,3 @@ class ProductsHandler:
         except Exception as e:
             print(e.args)
             return False
-    def like_dislike(self,product_id:str,user_id:str):
-        try:
-            data = self.products.find_product(product_id=product_id)
-            if user_id in data['likes']:
-                self.products.dislike(product_id,user_id)
-            else:
-                self.products.like(product_id,user_id)
-            return True
-        except Exception as e:
-            print(e.args)
-            return False

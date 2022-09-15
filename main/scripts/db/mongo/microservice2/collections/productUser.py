@@ -4,8 +4,8 @@ from scripts.utils.mongo_util import MongoCollectionBaseClass
 
 
 class ProductUserSchema(MongoBaseSchema):
-    user_id: str
     product_id: str
+    users: list = []
 
 
 class ProductUser(MongoCollectionBaseClass):
@@ -16,21 +16,24 @@ class ProductUser(MongoCollectionBaseClass):
             collection=CollectionNames.productUser,
         )
 
-    def find_all_users(self):
-        users = self.find(query={})
-        if users:
-            return list(users)
+    def find_all_products(self):
+        products = self.find(query={})
+        if products:
+            return list(products)
 
-    def find_user(self,  id):
-        user = self.find_one(query={"id": id})
-        if user:
-            return user
+    def find_product(self, product_id):
+        product = self.find_one(query={"product_id": product_id})
+        if product:
+            return product
 
-    def create_user(self, data: dict):
+    def create_product(self, data: dict):
         self.insert_one(data=data)
 
-    def update_user(self, id, data: dict):
-        self.update_one(query={"id": id}, data=data, upsert=False)
+    def delete_product(self, product_id):
+        self.delete_one(query={"product_id": product_id})
 
-    def delete_user(self, id):
-        self.delete_one(query={"id": id})
+    def like_product(self,product_id:str,user_id:str):
+        self.update_push_array(query={"product_id":product_id},array_key='users',data=user_id)
+
+    def dislike_product(self,product_id,user_id:str):
+        self.update_pull_array(query={"product_id":product_id},array_key='users',data=user_id)

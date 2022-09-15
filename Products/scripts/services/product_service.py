@@ -1,3 +1,4 @@
+from os import stat
 from fastapi import HTTPException, APIRouter, status
 from scripts.core.handlers.product_handler import ProductsHandler
 from scripts.constants.api_endpoints import APIEnpoints
@@ -57,6 +58,7 @@ def delete_product(product_id:str):
     except Exception as e:
         print(e.args)
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=e.args)
+
 
 # Route for a random user
 @products_router.get('/user')
