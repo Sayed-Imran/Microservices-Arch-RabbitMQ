@@ -6,7 +6,8 @@ from scripts.utils.mongo_util import MongoCollectionBaseClass
 class ProductSchema(MongoBaseSchema):
     title: str
     image: str
-    likes: int = 0
+    likes: list = []
+
 
 class Products(MongoCollectionBaseClass):
     def __init__(self, mongo_client):
@@ -21,16 +22,26 @@ class Products(MongoCollectionBaseClass):
         if products:
             return list(products)
 
-    def find_product(self,  product_id):
-        product = self.find_one(query={"product_id":product_id})
+    def find_product(self, product_id):
+        product = self.find_one(query={"product_id": product_id})
         if product:
             return product
 
     def create_product(self, data: dict):
         self.insert_one(data=data)
-    
-    def update_product(self,product_id,data:dict):
-        self.update_one(query={"product_id":product_id}, data=data, upsert=False)
-    
-    def delete_product(self,product_id):
-        self.delete_one(query={"product_id":product_id})
+
+    def update_product(self, product_id, data: dict):
+        self.update_one(query={"product_id": product_id}, data=data, upsert=False)
+
+    def delete_product(self, product_id):
+        self.delete_one(query={"product_id": product_id})
+
+    def like(self, product_id: str, user_id: str):
+        self.update_push_array(
+            query={"product_id": product_id}, array_key="likes", data=user_id
+        )
+
+    def dislike(self, product_id: str, user_id: str):
+        self.update_pull_array(
+            query={"product_id": product_id}, array_key="likes", data=user_id
+        )
