@@ -1,8 +1,8 @@
 import string, random
-from scripts.utils.producer_util import Publisher
-from scripts.db.mongo.microservice1.collections.products import Products
 from scripts.db.mongo import mongo_client
+from scripts.utils.producer_util import Publisher
 from scripts.constants.app_configuration import MicroService
+from scripts.db.mongo.microservice1.collections.products import Products
 
 publisher = Publisher(MicroService.RabbitMQ.uri)
 class ProductsHandler:
