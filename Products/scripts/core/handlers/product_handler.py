@@ -40,7 +40,7 @@ class ProductsHandler:
         try:
             self.products.update_product(product_id, data)
             data["product_id"] = product_id
-            publisher.publish("product_updated", data)
+            publisher.publish("product_detail_updated", data)
             return True
         except Exception as e:
             print(e.args)

@@ -1,34 +1,34 @@
 import pika,json
 from dotenv import load_dotenv
 load_dotenv()
+from scripts.db.mongo import mongo_client
 from scripts.constants.app_configuration import MicroService
-from scripts.core.handlers.product_handler import ProductsHandler
-from scripts.core.handlers.productUser_handler import ProductUserHandler
-
+from scripts.db.mongo.microservice2.collections.product import Products
+from scripts.db.mongo.microservice2.collections.productUser import ProductUser
 
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(MicroService.RabbitMQ.uri))
-
 channel = connection.channel()
-
 channel.queue_declare(queue="main")
-product_handler = ProductsHandler()
-product_user_handler = ProductUserHandler()
+
+
+product_db = Products(mongo_client)
+product_user_db = ProductUser(mongo_client)
 
 def callback(ch, method, properties, body):
     print("Received at main")
     data = json.loads(body)
     if properties.content_type == 'product_created':
         del data['likes']
-        product_handler.create_one(data)
-        product_user_handler.productUser.create_product({"product_id":data['product_id'],"users":[]})
+        product_db.create_product(data)
+        product_user_db.create_product({"product_id":data['product_id'],"users":[]})
 
-    elif properties.content_type == 'product_updated':
-        product_handler.update_one(data['product_id'],data)
+    elif properties.content_type == 'product_detail_updated':
+        product_db.update_product(data['product_id'],data)
 
     elif properties.content_type == 'product_deleted':
-        product_handler.delete_one(data['product_id'])
-        product_user_handler.delete_product(data['product_id'])
+        product_db.delete_product(data['product_id'])
+        product_user_db.delete_product(data['product_id'])
 
 
 channel.basic_consume(queue="main", on_message_callback=callback, auto_ack=True)

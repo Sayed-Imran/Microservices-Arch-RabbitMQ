@@ -1,9 +1,8 @@
-from os import stat
+import random
 from fastapi import HTTPException, APIRouter, status
 from scripts.core.handlers.product_handler import ProductsHandler
 from scripts.constants.api_endpoints import APIEnpoints
 from scripts.schemas.products_schema import ProductsSchema
-import random
 
 products_router = APIRouter(prefix=APIEnpoints.api)
 

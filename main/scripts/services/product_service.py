@@ -13,9 +13,11 @@ product_router = APIRouter(prefix=APIEndpoints.api)
 def like_dislike(product_id: str):
     try:
         req = requests.get("http://localhost:8080/api/user").text
-        user_id = json.loads(req)["id"]
+        user = json.loads(req)
+        user_id = user["id"]
         product_user_handler = ProductUserHandler()
         product_user_handler.like_dislike_product(product_id, user_id)
+        return {"status": "Success"}
     except Exception as e:
         print(e.args)
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=e.args)
