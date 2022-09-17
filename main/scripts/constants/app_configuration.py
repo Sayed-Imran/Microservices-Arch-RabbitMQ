@@ -42,3 +42,9 @@ class MicroService:
         if not uri:
             print("Error, ENV variable RabbitMQ URI not set")
             sys.exit(1)
+    
+    class Product_MS:
+        uri = config.get("PRODUCT_MS","uri")
+        if not uri:
+            print("Error, ENV variable PRODUCT_MS URI not set")
+            sys.exit(1)
