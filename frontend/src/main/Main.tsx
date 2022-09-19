@@ -7,7 +7,7 @@ const Main = () => {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('http://localhost:8080/api/find_products');
+                const response = await fetch(`${process.env.REACT_APP_MICROSERVICE_1}/api/find_products`);
 
                 const data = await response.json();
 
@@ -17,7 +17,7 @@ const Main = () => {
     }, []);
 
     const like = async (product_id: string) => {
-        await fetch(`http://localhost:9090/api/like/${product_id}`, {
+        await fetch(`${process.env.REACT_APP_MICROSERVICE_2}/api/like/${product_id}`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'}
         });

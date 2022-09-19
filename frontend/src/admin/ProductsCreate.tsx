@@ -10,8 +10,8 @@ const ProductsCreate = () => {
     const submit = async (e: SyntheticEvent) => {
         e.preventDefault();
 
-        await fetch('http://localhost:8080/api/products', {
-            method: 'POST',
+        await fetch(`${process.env.REACT_APP_MICROSERVICE_1}/api/create_product`, {
+           method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 title,

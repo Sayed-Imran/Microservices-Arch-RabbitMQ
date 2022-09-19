@@ -9,7 +9,7 @@ const Products = () => {
     useEffect(() => {
         (
             async () => {
-                const response = await fetch('http://localhost:8000/api/products');
+                const response = await fetch(`${process.env.REACT_APP_MICROSERVICE_1}/api/find_products`);
 
                 const data = await response.json();
 
@@ -20,7 +20,7 @@ const Products = () => {
 
     const del = async (product_id: string) => {
         if (window.confirm('Are you sure you want to delete this product?')) {
-            await fetch(`http://localhost:8080/api/products/${product_id}`, {
+            await fetch(`${process.env.REACT_APP_MICROSERVICE_1}/api/delete_product/${product_id}`, {
                 method: 'DELETE'
             });
 
@@ -58,7 +58,7 @@ const Products = () => {
                                     <td>{p.likes}</td>
                                     <td>
                                         <div className="btn-group mr-2">
-                                            <Link to={`/admin/products/${p.product_id}/edit`}
+                                            <Link to={`/admin/products/${p.product_id}`}
                                                   className="btn btn-sm btn-outline-secondary">Edit</Link>
                                             <a href="#" className="btn btn-sm btn-outline-secondary"
                                                onClick={() => del(p.product_id)}
