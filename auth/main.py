@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from scripts.services.product_service import product_router
+from scripts.services.login_service import user_cred
 
 app = FastAPI()
 
@@ -14,4 +14,4 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(product_router)
+app.include_router(user_cred)

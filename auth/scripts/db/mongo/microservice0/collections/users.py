@@ -1,13 +1,14 @@
+from pydantic import EmailStr
 from scripts.constants import DatabasesNames, CollectionNames
 from scripts.db.mongo.schema import MongoBaseSchema
 from scripts.utils.mongo_util import MongoCollectionBaseClass
 
 
-class UserSchema(MongoBaseSchema):
+class UsersSchema(MongoBaseSchema):
     name: str
-    email: str
+    email: EmailStr
     password: str
-    
+
 
 
 class Users(MongoCollectionBaseClass):
@@ -23,13 +24,16 @@ class Users(MongoCollectionBaseClass):
         if users:
             return list(users)
 
-    def find_user(self, user_id):
-        user = self.find_one(query={"user_id": user_id})
+    def find_user(self, email):
+        user = self.find_one(query={"email": email})
         if user:
             return user
 
     def create_user(self, data: dict):
         self.insert_one(data=data)
-
-    def delete_user(self, user_id):
+    
+    def update_user(self, user_id: str, data: dict):
+        self.update_one(query={"user_id": user_id}, data=data, upsert=True)
+    
+    def delete_user(self, user_id:str):
         self.delete_one(query={"user_id": user_id})
