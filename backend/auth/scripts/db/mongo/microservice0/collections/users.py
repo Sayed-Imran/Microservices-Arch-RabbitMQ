@@ -1,6 +1,6 @@
 from pydantic import EmailStr
-from scripts.constants import DatabasesNames, CollectionNames
 from scripts.db.mongo.schema import MongoBaseSchema
+from scripts.constants import DatabasesNames, CollectionNames
 from scripts.utils.mongo_util import MongoCollectionBaseClass
 
 
@@ -8,8 +8,6 @@ class UsersSchema(MongoBaseSchema):
     name: str
     email: EmailStr
     password: str
-
-
 
 class Users(MongoCollectionBaseClass):
     def __init__(self, mongo_client):
