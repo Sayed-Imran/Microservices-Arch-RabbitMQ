@@ -1,10 +1,9 @@
 from typing import Dict
-from fastapi import Depends, HTTPException
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
 from scripts.constants.secrets import Secrets
+from fastapi import Depends,status, HTTPException
 from fastapi.security.oauth2 import OAuth2PasswordBearer
-from fastapi import status
 
 
 class JWT:
