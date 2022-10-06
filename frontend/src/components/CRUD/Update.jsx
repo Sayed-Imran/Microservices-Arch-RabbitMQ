@@ -25,7 +25,7 @@ function Update(){
     redirect: 'follow'
   };
 
-  fetch(`${process.env.REACT_APP_MICROSERVICE_2}/api/find_product/${id}`, requestOptions)
+  fetch(`${window.env.MICROSERVICE_2}/api/find_product/${id}`, requestOptions)
   .then(async(response)=>{
     var resp_json=await response.json()
     setImage(resp_json.image)
@@ -52,7 +52,7 @@ function Update(){
         headers: myHeaders,
         body: raw,
     };
-    await fetch(`${process.env.REACT_APP_MICROSERVICE_2}/api/update_product/${id}`, requestOptions)
+    await fetch(`${window.env.MICROSERVICE_2}/api/update_product/${id}`, requestOptions)
         .then(response => response.text())
         //.then(result => console.log(result))
         .catch(error => console.log('error', error));

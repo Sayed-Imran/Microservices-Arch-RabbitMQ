@@ -25,3 +25,6 @@ __pycache__/
 .vscode
 .env
 .vscode
+
+/public/env-config.js
+env-config.js

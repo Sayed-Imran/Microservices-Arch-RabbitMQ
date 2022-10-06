@@ -19,7 +19,7 @@ function Home() {
       headers: myHeaders,
     };
 
-    await fetch(`${process.env.REACT_APP_MICROSERVICE_2}/api/find_products`, requestOptions)
+    await fetch(`${window.env.MICROSERVICE_2}/api/find_products`, requestOptions)
       .then(async (response) => {
         const resp_json = await response.json();
         setproduts(resp_json);

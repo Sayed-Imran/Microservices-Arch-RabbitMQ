@@ -30,7 +30,7 @@ function Create(){
         body: raw
         };
 
-    fetch(`${process.env.REACT_APP_MICROSERVICE_2}/api/create_product`, requestOptions)
+    fetch(`${window.env.MICROSERVICE_2}/api/create_product`, requestOptions)
         .then(response => response.json())
         //.then(result => console.log(result))
         .catch(error => console.log('error', error));

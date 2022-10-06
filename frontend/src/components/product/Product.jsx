@@ -14,7 +14,7 @@ function Products(){
         headers: myHeaders,
         };
 
-    await fetch(`${process.env.REACT_APP_MICROSERVICE_2}/api/find_products`, requestOptions)
+    await fetch(`${window.env.MICROSERVICE_2}/api/find_products`, requestOptions)
         .then(async(response) => {
             const resp_json=await response.json()
             setproduts(resp_json)
@@ -34,7 +34,7 @@ function Products(){
         body: raw,
     };
 
-    await fetch(`${process.env.REACT_APP_MICROSERVICE_2}/api/delete_product/${id}`, requestOptions)
+    await fetch(`${window.env.MICROSERVICE_2}/api/delete_product/${id}`, requestOptions)
         .then(async response => {
             await response.json()
             await loadProducts();

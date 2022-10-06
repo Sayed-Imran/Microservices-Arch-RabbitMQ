@@ -21,7 +21,7 @@ function LikeBtn(props) {
       body: raw,
     };
 
-    await fetch(`${process.env.REACT_APP_MICROSERVICE_3}/api/like/${id}`, requestOptions)
+    await fetch(`${window.env.MICROSERVICE_3}/api/like/${id}`, requestOptions)
       .then((response) => response.json())
       //.then((result) => console.log(result))
       .catch((error) => console.log("error", error));

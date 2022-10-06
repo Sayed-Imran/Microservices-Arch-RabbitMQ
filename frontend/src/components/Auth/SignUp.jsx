@@ -35,7 +35,7 @@ function Signup(){
   
     };
 
-    await fetch(`${process.env.REACT_APP_MICROSERVICE_1}/api/signup`, requestOptions)
+    await fetch(`${window.env.MICROSERVICE_1}/api/signup`, requestOptions)
     .then(navigate("/signin")) 
     //.then(result => console.log(result))
      //   .catch(error => console.log('error', error));
