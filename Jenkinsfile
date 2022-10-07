@@ -136,6 +136,7 @@ pipeline {
             steps{
                 sh'''
                     sudo docker system prune -f
+		    sudo docker image prune -af
                 '''
             }
         }
