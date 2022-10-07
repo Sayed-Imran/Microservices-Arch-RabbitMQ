@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Start AWS EC2 Instances') {
             steps {
-                withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID',credentialsId:'aws-ec2-creds',secretKeyVaraiable:'AWS_SECRET_ACCESS_KEY')]) {
+                withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID',credentialsId:'AWS-Admin',secretKeyVaraiable:'AWS_SECRET_ACCESS_KEY')]) {
                   sh '''
 	                aws ec2 start-instances --instance-ids 	i-072a35f48879eeeab
 	                '''
@@ -141,7 +141,7 @@ pipeline {
         }
          stage('Stop AWS EC2 Instances') {
               steps {
-                  withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID',credentialsId:'aws-ec2-creds',secretKeyVaraiable:'AWS_SECRET_ACCESS_KEY')]) {
+                  withCredentials([aws(accessKeyVariable:'AWS_ACCESS_KEY_ID',credentialsId:'AWS-Admin',secretKeyVaraiable:'AWS_SECRET_ACCESS_KEY')]) {
                     sh '''
                     aws ec2 stop-instances --instance-ids 	i-072a35f48879eeeab
                     '''
