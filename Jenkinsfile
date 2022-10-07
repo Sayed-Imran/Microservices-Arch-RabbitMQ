@@ -83,7 +83,7 @@ pipeline {
             steps{
                 sh'''
                  sudo docker system prune -f
-                 sudo docker build -t sayedimran/consumer-prod:v1 ./backend/consumer-product/
+                 sudo docker build -t sayedimran/consumer-prod:v1 ./backend/consumer-prod/
                 '''
             }
         }
