@@ -59,7 +59,7 @@ function Create(){
                 onChange={handleChange}
               />
             </div>
-            <button className="btn btn-primary w-100">Add User</button>
+            <button className="btn btn-primary w-100">Add</button>
           </form>
         </div>
       </div>

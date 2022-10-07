@@ -15,6 +15,7 @@ function Update(){
     product()
     // eslint-disable-next-line
   },[])
+  
   const product=()=>{
     var myHeaders = new Headers();
     myHeaders.append("Authorization", "Bearer "+localStorage.getItem("token"));

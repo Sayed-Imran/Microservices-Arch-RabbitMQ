@@ -5,6 +5,7 @@ import Pic from "../assests/pic1.png"
 import "./Signup.css"
 
 function Signup(){
+    const [error, setError] = useState("");
     const [data,setData]=useState({
         fullName:"",
         username:"",
@@ -36,9 +37,16 @@ function Signup(){
     };
 
     await fetch(`${window.env.MICROSERVICE_1}/api/signup`, requestOptions)
-    .then(navigate("/signin")) 
-    //.then(result => console.log(result))
-     //   .catch(error => console.log('error', error));
+        .then(async(response)=>{
+            var resp_json=await response.json()
+            if(resp_json.status !=true){
+                setError("Email Already Existing")
+            }
+            else{
+                navigate("/login")                
+            }      
+        })
+        .catch(error => console.log('error', error));
     }
     return(
         <section className="vh-100">
@@ -50,7 +58,7 @@ function Signup(){
                     <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
                         <form onSubmit={handleSubmit}>  
                             <div className="form-outline mb-4">
-                                <input type="email" id="form3Example3" className="form-control form-control-lg"
+                                <input type="text" id="form3Example" className="form-control form-control-lg"
                                 placeholder="Full Name" name="fullName" value={data.fullName} onChange={handleChange} required/>
                             </div>    
                             <div className="form-outline mb-4">
@@ -62,7 +70,7 @@ function Signup(){
                                 <input type="password" id="form3Example4" className="form-control form-control-lg"
                                 placeholder="Password" name="password" value={data.password} onChange={handleChange} required/>
                             </div>
-      
+                            {error && <div style={{color:"red"}} >{error}</div>}
                             <div className="text-center text-lg-start mt-4 pt-2">
                                 <button  className="btn btn-primary btn-lg"
                                 style={{paddingLeft:" 2.5rem" , paddingRight: "2.5rem"}}>Signup</button>

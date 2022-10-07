@@ -36,7 +36,7 @@ function Home() {
               <div className="col col-sm-4" key={product.product_id}>
                 <div className="card mb-4 shadow-sm">
                   <img
-                    className= "card-img-top "
+                    className= "images" //card-img-top 
                     src={product.image}
                     alt={product.image}
                   />

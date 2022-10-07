@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import "./Login.css"
 import Pic from "../assests/pic1.png"
 function Signin(){
+    const [error, setError] = useState("");
     const [data,setData]=useState({
         username:"",
         password:""
@@ -26,10 +27,13 @@ function Signin(){
         await fetch(`${window.env.MICROSERVICE_1}/api/login`, requestOptions)
             .then(async(response)=>{
                 var resp_json=await response.json()
-                console.log(resp_json.detail.access_token)
-                localStorage.setItem("token",resp_json.detail.access_token)
-                window.location = "/";
-
+                if(resp_json.detail.access_token != undefined){
+                    localStorage.setItem("token",resp_json.detail.access_token)
+                    window.location = "/";
+                }
+                else{
+                    setError("Invalid Username or Password")
+                }  
             })
             .catch(error => console.log('error', error));
     };
@@ -51,8 +55,9 @@ function Signin(){
                                 <input type="password" id="form3Example4" className="form-control form-control-lg"
                                 placeholder="password" name="password" value={data.password} onChange={handleChange} />
                             </div>
-      
+                            {error && <div style={{color:"red"}} >{error}</div>}
                             <div className="text-center text-lg-start mt-4 pt-2">
+                            
                                 <button  className="btn btn-primary btn-lg"
                                     style={{paddingLeft:" 2.5rem" , paddingRight: "2.5rem"}}>
                                     Login
