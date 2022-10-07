@@ -21,7 +21,7 @@ pipeline {
             steps{
                 sh'''
                     sudo docker system prune -f
-                    sudo docker build -t sayedimran/product-service:v1 ./backend/product/
+                    sudo docker build -t sayedimran/product-service:v1 ./backend/products/
                 '''
             }
         }
