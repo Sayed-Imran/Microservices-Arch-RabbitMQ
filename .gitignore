@@ -23,7 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 __pycache__/
 .vscode
-.env
 .vscode
 
 /public/env-config.js
