@@ -149,6 +149,9 @@ pipeline {
               }
           }
 	stage('Eliminating the existing containers'){
+		agent{
+                label 'microservice'
+            }
             steps{
                 sh'''
                     docker stop frontend product main auth consumer-main consumer-prod
@@ -158,6 +161,9 @@ pipeline {
             }
         }
         stage('Pulling the backend and frontend Images'){
+		agent{
+                label 'microservice'
+            }
             steps{
                 sh'''
                     docker pull sayedimran/micorservice-frontend:v1
@@ -170,6 +176,9 @@ pipeline {
             }
         }
         stage('Updating the backend and frontend containers'){
+		agent{
+                label 'microservice'
+            }
             steps{
                 sh'''
                   docker run -d --name auth -p 7070:7070 -e MONGO_URI=mongodb://13.233.137.44:27017/ sayedimran/auth-service:v1
